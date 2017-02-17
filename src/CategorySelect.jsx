@@ -92,7 +92,7 @@ class CategorySelect extends Component{
     return(
       <FormGroup>
         <div>
-          <Select ref="CategorySelect" autofocus options={this.state.optionsCategory} simpleValue clearable={this.state.clearable}
+          {/* <Select ref="CategorySelect" autofocus options={this.state.optionsCategory} simpleValue clearable={this.state.clearable}
             name="selected-category" disabled={this.state.disabled} placeHolder = "Select Category"
             value={this.state.selectedCategoryValue} onChange={(val)=>this.updateCategoryValue(val)} searchable={this.state.searchable}
           />
@@ -100,7 +100,7 @@ class CategorySelect extends Component{
             name="selected-subcategory" disabled={this.state.disabled} placeHolder = "Select Sub Category"
             value={this.state.selectedSubCategoryValue} onChange={(val)=>this.updateSubCategoryValue(val)} searchable={this.state.searchable}
           />
-          <Button bsStyle="primary" bsSize="large">Search</Button>
+          <Button bsStyle="primary" bsSize="large">Search</Button> */}
           <AttributeProductCount category_id = '10018'/>
       </div>
     </FormGroup>
