@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import {FormGroup,Button} from 'react-bootstrap';
+import {FormGroup,Button,ControlLabel} from 'react-bootstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import AttributeProductCount from './AttributeProductCount';
 const STATES = require('./data/states');
 const Categories = require('./data/categoryList');
+import './App.css';
 
 
 class CategorySelect extends Component{
 
   constructor(props){
     super(props);
-    this.populateCategory();
 
-    this.state = {
+      this.state = {
 			disabled: false,
 			searchable: this.props.searchable,
 			selectedCategoryValue: 'selectCategory',
@@ -23,7 +23,13 @@ class CategorySelect extends Component{
       optionsSubCategory : STATES['CAT'],
       categoryArray : [],
       categoryPopulate: false,
+      isSearch : false
     }
+  }
+
+  componentDidMount(){
+    this.populateCategory();
+    console.log('componentDidMount',this.state);
   }
 
   populateCategory(){
@@ -33,12 +39,12 @@ class CategorySelect extends Component{
     })
     .then(response => response.json())
     .then(json => {
-      console.log("Category Json", json);
+      //console.log("Category Json", json);
       let optionsCatArray = [];
 
       this.setState({categoryArray: json});
       json.map((category, index) => {
-        console.log(category);
+        //console.log(category);
           optionsCatArray.push({
             value: category.category_id,
             label: category.name
@@ -87,23 +93,36 @@ class CategorySelect extends Component{
   		});
   }
 
+  getAttributeProductCount(){
+    this.setState({
+      isSearch: true
+    });
+  }
+
   render(){
 
     return(
-      <FormGroup>
-        <div>
-          {/* <Select ref="CategorySelect" autofocus options={this.state.optionsCategory} simpleValue clearable={this.state.clearable}
-            name="selected-category" disabled={this.state.disabled} placeHolder = "Select Category"
-            value={this.state.selectedCategoryValue} onChange={(val)=>this.updateCategoryValue(val)} searchable={this.state.searchable}
-          />
-          <Select ref="SubCategorySelect" autofocus options={this.state.optionsSubCategory} simpleValue clearable={this.state.clearable}
-            name="selected-subcategory" disabled={this.state.disabled} placeHolder = "Select Sub Category"
-            value={this.state.selectedSubCategoryValue} onChange={(val)=>this.updateSubCategoryValue(val)} searchable={this.state.searchable}
-          />
-          <Button bsStyle="primary" bsSize="large">Search</Button> */}
-          <AttributeProductCount category_id = '10018'/>
+      <div className="ActivePage">
+        <FormGroup>
+          <ControlLabel>Select Category & Sub-Category</ControlLabel>
+          <div className="SelectCategory_div">
+            <Select ref="CategorySelect" className="Category_Select" autofocus options={this.state.optionsCategory} simpleValue clearable={this.state.clearable}
+              name="selected-category" disabled={this.state.disabled} placeHolder = "Select Category"
+              value={this.state.selectedCategoryValue} onChange={(val)=>this.updateCategoryValue(val)} searchable={this.state.searchable}
+            />
+            <Select ref="SubCategorySelect" className="SubCategory_Select"  autofocus options={this.state.optionsSubCategory} simpleValue clearable={this.state.clearable}
+              name="selected-subcategory" disabled={this.state.disabled} placeHolder = "Select Sub Category"
+              value={this.state.selectedSubCategoryValue} onChange={(val)=>this.updateSubCategoryValue(val)} searchable={this.state.searchable}
+            />
+            <Button bsStyle="primary" onClick={event => {this.getAttributeProductCount()}}>Search</Button>
+            { this.state.isSearch ?
+              <AttributeProductCount category_id = {this.state.selectedSubCategoryValue}/>
+              :
+              <div></div>
+            }
+          </div>
+        </FormGroup>
       </div>
-    </FormGroup>
     )
   }
 }

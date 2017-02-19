@@ -11,7 +11,9 @@
     "react-bootstrap-select": "^0.14.0",
     "react-dom": "^15.4.2",
     "react-select": "^1.0.0-rc.3",
-    "react-select-search": "^0.5.5"
+    "react-select-search": "^0.5.5",
+    "react-tag-input": "^4.6.2",
+    "react-tagsinput": "^3.15.1"
   },
   "scripts": {
     "start": "react-scripts start",

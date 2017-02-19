@@ -1,38 +1,47 @@
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap';
-const CategoryHealth = require('./data/category_health');
+import SetSeoRule from './SetSeoRule';
+import './App.css';
 
 class AttributeProductCount extends Component{
 
   constructor(props){
     super(props);
-    this.getAttributeProductCount();
     this.state = {
       category_id : this.props.category_id,
        cols : [
-                    { key: 'sno', label: 'S.No' },
-                    { key: 'attribute', label: 'Attributes' },
-                    { key: 'product_count', label: 'Product Count' }
-                ],
+                { key: 'sno', label: 'S.No' },
+                { key: 'attribute', label: 'Attributes' },
+                { key: 'product_count', label: 'Product Count' }
+              ],
 
-        data : [
-                { id: 1, firstName: 'John', lastName: 'Doe' },
-                { id: 2, firstName: 'Clark', lastName: 'Kent' },
-                { id: 2, firstName: 'Clark', lastName: 'ddd' }
-            ]
+        data : [],
+        tagHints: [],
+        tagsLoaded: false
     }
   }
 
-componentDidMount(){
-  this.getAttributeProductCount();
-}
+  componentDidMount(){
+    this.getAttributeProductCount();
+    console.log('componentDidMount',this.state);
+  }
+
+  generateTagHints(json){
+    var data = json;
+    var hints = [];
+    //console.log('generateTags', data);
+    hints =  data.map(function(value){
+              return value.attribute;
+            });
+    return hints;
+  }
 
   generateHeaders() {
-    console.log(this.state);
-        var cols = this.state.cols;
-        return cols.map(function(colData) {
-            return <th key={colData.key}> {colData.label} </th>;
-        });
+    console.log('generateHeaders',this.state);
+    var cols = this.state.cols;
+    return cols.map(function(colData) {
+        return <th key={colData.key}> {colData.label} </th>;
+    });
   }
 
   generateRows() {
@@ -47,8 +56,8 @@ componentDidMount(){
   }
 
   getAttributeProductCount(){
-
-    const FETCH_URL = "http://localcadmin.craftsvilla.com/getProductHealth.php?category=10001";
+    const FETCH_URL = "http://localcadmin.craftsvilla.com/getProductHealth.php?category=" + this.state.category_id;
+    console.log(FETCH_URL);
     fetch(FETCH_URL,{
       method: 'GET',
       headers : {
@@ -58,15 +67,9 @@ componentDidMount(){
     .then(response => response.json())
     .then(json => {
       console.log('Attribute Prodct',json);
-      this.state = {
-          category_id : this.props.category_id,
-          cols : [
-                    { key: 'sno', label: 'S.No' },
-                    { key: 'attribute', label: 'Attributes' },
-                    { key: 'product_count', label: 'Product Count' }
-                  ],
-          data : json
-      }
+      this.setState({data : json});
+      this.setState({tagHints: this.generateTagHints(json)});
+      this.setState({tagsLoaded :true});
     })
     .catch(e => console.log("Booo", e))
   }
@@ -74,10 +77,18 @@ componentDidMount(){
 
   render(){
     return(
-      <Table responsive>
-         <thead> {this.generateHeaders()} </thead>
-         <tbody> {this.generateRows()} </tbody>
-     </Table>
+      <div className= "AttributeProduct">
+        <h4>Product Count per Attribute</h4>
+        <Table responsive striped bordered condensed hover>
+           <thead> {this.generateHeaders()} </thead>
+           <tbody> {this.generateRows()} </tbody>
+       </Table>
+       {
+         this.state.tagsLoaded ? <SetSeoRule hits = {this.state.tagHints}/> : <div></div>
+
+       }
+      </div>
+
     )
   }
 }

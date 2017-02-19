@@ -1,0 +1,127 @@
+.AttributeProduct{
+  width: 40%;
+}
+.tagClass{
+  position: relative;
+  font-size: 19px !important;
+  height: 50px;
+  margin: 5px;
+  font-size: 12px;
+
+  border: 1px solid #eee;
+}
+.tagInputClass{
+  position: relative;
+  font-size: 32px;
+  margin: 0;
+  font-size: 12px;
+
+  border: 1px solid #eee;
+}
+.tagInputFieldClass{
+  height: 31px;
+  margin: 0;
+  font-size: 22px;
+
+  border: 1px solid #eee;
+  padding: 5px;
+}
+/* Example Styles for React Tags*/
+.tags {
+    position: relative;
+    font-size: 32px;
+    height: 50px;
+    margin: 0;
+    font-size: 12px;
+    width: auto;
+    border: 1px solid #eee;
+}
+
+/* Styles for the input */
+div.ReactTags__tagInput {
+    width: 2000px;
+    border-radius: 2px;
+    display: inline-block;
+}
+input.tagInputFieldClass,
+ input.tagInputFieldClass:focus {
+    height: 31px;
+    margin: 0;
+    font-size: 22px;
+    width: 100%;
+    border: 1px solid #eee;
+}
+
+/* Styles for selected tags */
+div.ReactTags__selected span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #eee;
+    font-size: 22px;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 5px;
+    cursor: move;
+    border-radius: 2px;
+}
+.selectedClass .removeClass {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styles for suggestions */
+.suggestionsClass {
+    position: absolute;
+}
+.suggestionsClass ul {
+    list-style-type: none;
+    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+    background: white;
+    width: 200px;
+}
+.suggestionsClass li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 10px;
+    margin: 0;
+}
+.suggestionsClass li mark {
+    text-decoration: underline;
+    background: none;
+    font-weight: 600;
+}
+.suggestionsClass ul li.active {
+    background: #b7cfe0;
+    cursor: pointer;
+}
+
+
+/*Table Responsive Styling*/
+.table-responsive{
+
+}
+
+.AddAttributeButton{
+  margin-left: 40%;
+  margin-top: 5px;
+  width: 100px;
+}
+
+
+/*Select Category Styling*/
+.SelectCategory{
+  width: 40%;
+}
+
+.ActivePage{
+  margin-top: 25px !important;
+  margin: 5px;
+}
+.SelectCategory_div{
+  margin: 5px;
+}
+.Category_Select{
+  margin: 5px;
+}
+.SubCategory_Select{
+  margin: 5px;
+}
