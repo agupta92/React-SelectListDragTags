@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormGroup,Button,ControlLabel} from 'react-bootstrap';
+import {FormGroup,Button,ControlLabel,ProgressBar} from 'react-bootstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import AttributeProductCount from './AttributeProductCount';
@@ -23,7 +23,7 @@ class CategorySelect extends Component{
       optionsSubCategory : STATES['CAT'],
       categoryArray : [],
       categoryPopulate: false,
-      isSearch : false
+      isSearch : true
     }
   }
 
@@ -74,7 +74,8 @@ class CategorySelect extends Component{
   updateSubCategoryValue (newValue) {
 		console.log('State changed to ' + newValue);
 		this.setState({
-			selectedSubCategoryValue: newValue
+			selectedSubCategoryValue: newValue,
+      isSearch : false
 		});
 	}
 
@@ -89,7 +90,8 @@ class CategorySelect extends Component{
       })
       console.log('optionsSubCatArray',optionsSubCatArray );
       this.setState({
-  			optionsSubCategory: optionsSubCatArray
+  			optionsSubCategory: optionsSubCatArray,
+        isSearch : false
   		});
   }
 
@@ -103,6 +105,7 @@ class CategorySelect extends Component{
 
     return(
       <div className="ActivePage">
+        {this.state.categoryPopulate ?
         <FormGroup>
           <ControlLabel>Select Category & Sub-Category</ControlLabel>
           <div className="SelectCategory_div">
@@ -114,14 +117,19 @@ class CategorySelect extends Component{
               name="selected-subcategory" disabled={this.state.disabled} placeHolder = "Select Sub Category"
               value={this.state.selectedSubCategoryValue} onChange={(val)=>this.updateSubCategoryValue(val)} searchable={this.state.searchable}
             />
-            <Button bsStyle="primary" onClick={event => {this.getAttributeProductCount()}}>Search</Button>
+              <Button className="Button" bsStyle="primary" onClick={event => {this.getAttributeProductCount()}}>Search</Button>
             { this.state.isSearch ?
-              <AttributeProductCount category_id = {this.state.selectedSubCategoryValue}/>
+                <AttributeProductCount category_id = {this.state.selectedSubCategoryValue}/>
               :
               <div></div>
             }
           </div>
         </FormGroup>
+        :
+          <div><h3>Please wait while we load Categories</h3>
+          <ProgressBar active now={100} />
+          </div>
+        }
       </div>
     )
   }

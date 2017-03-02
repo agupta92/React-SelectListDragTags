@@ -8,7 +8,7 @@ class SetSeoRule extends Component{
 
   constructor(props) {
       super(props);
-      this.state = { tags: [ {id: 1, text: "Apples"} ],
+      this.state = { tags: [ {id: 1, text: "Color"} ],
             suggestions: ["Banana", "Mango", "Pear", "Apricot"]
         }
     }
@@ -41,33 +41,41 @@ class SetSeoRule extends Component{
         this.setState({ tags: tags });
     }
 
-  render(){
-    let tags = this.state.tags;
-    let suggestions = this.state.suggestions;
-    return (
-      <div>
-       <h4>Add Seo Attributes <Label>Tag</Label></h4>
+    saveAttributeRules(){
+      console.log('saveAttributeRules',JSON.stringify(this.state.tags));
+
+    }
+
+    render(){
+      let tags = this.state.tags;
+      let suggestions = this.state.suggestions;
+      return (
         <div>
-            <ReactTags
-              classNames={{
-                  tags: 'tagsClass',
-                  tagInput: 'tagInputClass',
-                  tagInputField: 'tagInputFieldClass',
-                  selected: 'selectedClass',
-                  tag: 'tagClass',
-                  remove: 'removeClass',
-                  suggestions: 'suggestionsClass'
-                }}
-                tags={tags}
-                suggestions={this.props.hits}
-                handleDelete={(key) => this.handleDelete(key)}
-                handleAddition={(val) =>this.handleAddition(val)}
-                handleDrag={this.handleDrag} />
+          <div>
+            <h6>Add Seo Attributes <Label>Tag in Sequence</Label></h6>
+            <div>
+                <ReactTags
+                  classNames={{
+                      tags: 'tagsClass',
+                      tagInput: 'tagInputClass',
+                      tagInputField: 'tagInputFieldClass',
+                      selected: 'selectedClass',
+                      tag: 'tagClass',
+                      remove: 'removeClass',
+                      suggestions: 'suggestionsClass'
+                    }}
+                    tags={tags}
+                    suggestions={this.props.hits}
+                    handleDelete={(key) => this.handleDelete(key)}
+                    handleAddition={(val) =>this.handleAddition(val)}
+                    handleDrag={this.handleDrag} />
+            </div>
+          </div>
+
+          <Button className="Button" bsStyle="primary" onClick={event => {this.saveAttributeRules()}}>Save Rule</Button>
         </div>
-        <Button className= "AddAttributeButton" bsStyle="success">Save</Button>
-      </div>
-    )
-  }
+      )
+    }
 }
 
 export default SetSeoRule;

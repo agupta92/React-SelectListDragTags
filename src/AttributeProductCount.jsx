@@ -17,7 +17,7 @@ class AttributeProductCount extends Component{
 
         data : [],
         tagHints: [],
-        tagsLoaded: false
+          tagsLoaded: true
     }
   }
 
@@ -40,7 +40,7 @@ class AttributeProductCount extends Component{
     console.log('generateHeaders',this.state);
     var cols = this.state.cols;
     return cols.map(function(colData) {
-        return <th key={colData.key}> {colData.label} </th>;
+        return <th key={colData.key}>{colData.label}</th>;
     });
   }
 
@@ -49,9 +49,9 @@ class AttributeProductCount extends Component{
           data = this.state.data;
       return data.map(function(item) {
           var cells = cols.map(function(colData) {
-              return <td> {item[colData.key]} </td>;
+              return <td> {item[colData.key]}</td>;
           });
-          return <tr key={item.sno}> {cells} </tr>;
+          return <tr key={item.sno}>{cells}</tr>;
       });
   }
 
@@ -80,11 +80,16 @@ class AttributeProductCount extends Component{
       <div className= "AttributeProduct">
         <h4>Product Count per Attribute</h4>
         <Table responsive striped bordered condensed hover>
-           <thead> {this.generateHeaders()} </thead>
-           <tbody> {this.generateRows()} </tbody>
+           <thead>{this.generateHeaders()}</thead>
+           <tbody>{this.generateRows()}</tbody>
        </Table>
        {
-         this.state.tagsLoaded ? <SetSeoRule hits = {this.state.tagHints}/> : <div></div>
+         this.state.tagsLoaded ? <div>
+                                    <SetSeoRule hits = {this.state.tagHints}/>
+                                    <SetSeoRule hits = {this.state.tagHints}/>
+                                    <SetSeoRule hits = {this.state.tagHints}/>
+                                  </div> :
+                                  <div></div>
 
        }
       </div>
